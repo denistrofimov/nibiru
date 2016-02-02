@@ -181,7 +181,7 @@ who has fields with <code>childPath</code> option. </p>
 
 <p>Controllers are business logic containers mapped to urls that located in <em>app/controllers</em> directory. Loader of controller 
 also accepts core argument, but for now, models can be accessed by calling <code>core.model('name')</code> method. Loader must return 
-object with <em>method</em> fields. Additional controller object can contain '@method' field to specify http method and '@route'
+object with <em>method</em> fields. Additional controller object can contain '<a href="https://github.com/method" class="user-mention">@method</a>' field to specify http method and '<a href="https://github.com/route" class="user-mention">@route</a>' 
 to specify custom route for this controller (custom route must contains :method parameter).</p>
 
 <p>Structure of <em>app/controllers</em> directory mapped to routes. For example this structure</p>
@@ -232,11 +232,11 @@ application.</p>
 
 <p>After bootloader finished loading models, it mount RESTful router to get base CRUD functionality. There are some routes:</p>
 
-<pre><code>GET     /:model_name        // get all models
-GET     /:model_name/:_id   // get model by id
-POST    /:model_name        // create new model
-PUT     /:model_name/:_id   // update existing model
-DELETE  /:model_name/:id    // delete existing model
+<pre><code>GET     /api/:model_name        // get all models
+GET     /api/:model_name/:_id   // get model by id
+POST    /api/:model_name        // create new model
+PUT     /api/:model_name/:_id   // update existing model
+DELETE  /api/:model_name/:id    // delete existing model
 </code></pre>
 
 <h2>
