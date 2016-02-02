@@ -11,7 +11,7 @@ There is no big things behind, just some rules to organize your back-end applica
 ## Install
 Install via [npm](https://www.npmjs.com/package/nibiru)
 ```bash
-$ npm install nibiru
+$ npm install --save nibiru
 ```
 
 
@@ -210,11 +210,11 @@ module.exports = function (core) {
 
 After bootloader finished loading models, it mount RESTful router to get base CRUD functionality. There are some routes:
 ```
-GET     /:model_name        // get all models
-GET     /:model_name/:_id   // get model by id
-POST    /:model_name        // create new model
-PUT     /:model_name/:_id   // update existing model
-DELETE  /:model_name/:id    // delete existing model
+GET     /api/:model_name        // get all models
+GET     /api/:model_name/:_id   // get model by id
+POST    /api/:model_name        // create new model
+PUT     /api/:model_name/:_id   // update existing model
+DELETE  /api/:model_name/:id    // delete existing model
 ```
 
 
