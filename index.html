@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Nibiru.js by denistrofimov</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Nibiru.js</h1>
+      <h2 class="project-tagline">MC framework for node.js based on express and mongoose</h2>
+      <a href="https://github.com/denistrofimov/nibiru" class="btn">View on GitHub</a>
+      <a href="https://github.com/denistrofimov/nibiru/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/denistrofimov/nibiru/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="nibirujs" class="anchor" href="#nibirujs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Nibiru.js</h1>
+
+<hr>
+
+<p><a href="https://gitter.im/denistrofimov/nibiru?utm_source=badge&amp;utm_medium=badge&amp;utm_campaign=pr-badge&amp;utm_content=badge"><img src="https://badges.gitter.im/denistrofimov/nibiru.svg" alt="Join the chat at https://gitter.im/denistrofimov/nibiru"></a></p>
+
+<p>Nibiru.js is MC framework for modern web applications based on express and mongoose. <code>M</code> is a model, <code>C</code> is a 
+controller. That is. There is no Views. Nibiru.js focus on data model and the way it being processed by front-end. 
+There is no big things behind, just some rules to organize your back-end application.</p>
+
+<h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Install</h2>
+
+<p>Install via <a href="https://www.npmjs.com/package/nibiru">npm</a></p>
+
+<div class="highlight highlight-source-shell"><pre>$ npm install nibiru</pre></div>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Start app by sending application root directory to nibiru. Nibiru.js function returns vanilla bluebird Promise</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> path <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>path<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> nibiru <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>nibiru<span class="pl-pds">'</span></span>);
+
+<span class="pl-en">nibiru</span>(<span class="pl-smi">path</span>.<span class="pl-c1">join</span>(<span class="pl-c1">__dirname</span>, <span class="pl-s"><span class="pl-pds">'</span>app<span class="pl-pds">'</span></span>)).<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">core</span>){
+
+    <span class="pl-c">// some additional setup</span>
+
+}).<span class="pl-en">catch</span>(<span class="pl-k">function</span>(<span class="pl-smi">err</span>){
+
+    <span class="pl-c">// handle bootloading error</span>
+    <span class="pl-en">console</span>.<span class="pl-c1">error</span>(err);
+    <span class="pl-smi">process</span>.<span class="pl-en">exit</span>(<span class="pl-c1">1</span>);
+
+});</pre></div>
+
+<h2>
+<a id="app-structure" class="anchor" href="#app-structure" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>App structure</h2>
+
+<p>Application in therms of Nibiru.js slices on Configs, Services, Models and Controllers.
+Typically your application directory should looks like:</p>
+
+<pre><code>app
+┣ config
+┣ controllers
+┣ models
+┗ services
+</code></pre>
+
+<p>All app components must exports function that will be called on bootloading state, lets call it <code>loader</code> function</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">module</span>.<span class="pl-en">exports</span> <span class="pl-k">=</span> <span class="pl-k">function</span> () {
+    <span class="pl-c">// return something useful</span>
+    <span class="pl-k">return</span> {};
+};</pre></div>
+
+<h3>
+<a id="configs" class="anchor" href="#configs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configs</h3>
+
+<p>Config is config.js file placed in <em>app/config</em> directory. Loader of configs accepts single 
+argument - app directory. This is useful for example for defining a resources path.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">/** app/config/config.js */</span>
+
+<span class="pl-k">var</span> path <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>path<span class="pl-pds">'</span></span>);
+
+<span class="pl-c1">module</span>.<span class="pl-en">exports</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">base</span>) {
+    <span class="pl-k">return</span> {
+        some_file_path<span class="pl-k">:</span> <span class="pl-smi">path</span>.<span class="pl-c1">join</span>(base, <span class="pl-s"><span class="pl-pds">"</span>path/to/file.txt<span class="pl-pds">"</span></span>)
+    };
+};</pre></div>
+
+<p>For handling different apps stages (develop, production), Nibiru.js bootloader looks in <code>process.env.mode</code> property 
+for string that indicate stage. If mode is present, bootloader will try to extend default config with config 
+from <em>app/configs/ *</em>mode** /config.js*</p>
+
+<p>There is mandatory fields that config must contains:</p>
+
+<pre><code>mongo: {
+     host: "database_host",
+     user: "database_user",
+     pass: "database_user_password",
+     database: "database_name"
+},
+server: {
+     "port": 7051,
+     "host": "host"
+}
+</code></pre>
+
+<h3>
+<a id="services" class="anchor" href="#services" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Services</h3>
+
+<p>Service is an utility peace of code that loads and stores in core. Service location is <em>app/services</em> directory. By 
+experience we know that utility modules often represented in more than one file, even directories. For this reasons 
+it was necessary to integrate naming conventions: service file name must ends with <em>\</em>service.js* or <em>\</em>Service.js*. </p>
+
+<p>Services available by low-cased, underscored name without <em>\</em>service.js* suffix. Service can be grouped in subdirectories and will 
+be available by dot represented path.</p>
+
+<pre><code>app
+┗ services
+    ┣ utils
+    ┃   ┗ MD5Service.js
+    ┗ FileService.js
+</code></pre>
+
+<p>In example above bootloader will load two services with names 'file' and 'utils.md5' respectively.</p>
+
+<p>Service loader accepts config argument - application config loaded in previous bootloading state.</p>
+
+<h3>
+<a id="models" class="anchor" href="#models" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Models</h3>
+
+<p>Models in Nibiru.js is mongoose models. They are located in <em>app/models</em> directory. Loader of model accepts <code>core</code> argument. 
+Core argument is in object created for component communication. Application config available on <code>core.config</code> property 
+and services can be retrieved by 
+calling <code>core.service(name)</code> method.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">/** app/models/User.js */</span>
+
+<span class="pl-k">var</span> Schema <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>mongoose<span class="pl-pds">'</span></span>).<span class="pl-smi">Schema</span>;
+
+<span class="pl-c1">module</span>.<span class="pl-en">exports</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">core</span>) {
+
+    <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">Schema</span>({
+        name<span class="pl-k">:</span> {
+            type<span class="pl-k">:</span> <span class="pl-c1">String</span>,
+            <span class="pl-k">default</span><span class="pl-k">:</span> <span class="pl-smi">core</span>.<span class="pl-smi">config</span>.<span class="pl-smi">default_name</span> <span class="pl-c">// refer to config </span>
+        },
+        avatar<span class="pl-k">:</span> {
+            type<span class="pl-k">:</span> <span class="pl-c1">String</span>
+        },
+        region<span class="pl-k">:</span> {
+            type<span class="pl-k">:</span> <span class="pl-smi">Schema</span>.<span class="pl-smi">Types</span>.<span class="pl-smi">ObjectId</span>,
+            ref<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>region<span class="pl-pds">'</span></span>,
+            childPath<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>users<span class="pl-pds">'</span></span>
+        },
+        type<span class="pl-k">:</span> {
+            type<span class="pl-k">:</span> <span class="pl-c1">Number</span>,
+            <span class="pl-k">default</span><span class="pl-k">:</span> <span class="pl-c1">1</span>
+        },
+        registerDate<span class="pl-k">:</span> {
+            type<span class="pl-k">:</span> <span class="pl-c1">Date</span>,
+            <span class="pl-k">default</span><span class="pl-k">:</span> <span class="pl-smi">core</span>.<span class="pl-en">service</span>(<span class="pl-s"><span class="pl-pds">'</span>utils<span class="pl-pds">'</span></span>).<span class="pl-smi">now</span> <span class="pl-c">// refer to now method of utils service</span>
+        }
+    });
+};</pre></div>
+
+<p>Bootloader automatically install <a href="https://www.npmjs.com/package/mongoose-deep-populate">mongoose-deep-populate</a> plugin. 
+Also <a href="https://www.npmjs.com/package/mongoose-relationship">mongoose-relationship</a> plugin will be installed on models 
+who has fields with <code>childPath</code> option. </p>
+
+<p>Name of model sets to underscored, low-cased basename of file.</p>
+
+<h3>
+<a id="controllers" class="anchor" href="#controllers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Controllers</h3>
+
+<p>Controllers are business logic containers mapped to urls that located in <em>app/controllers</em> directory. Loader of controller 
+also accepts core argument, but for now, models can be accessed by calling <code>core.model('name')</code> method. Loader must return 
+object with <em>method</em> fields. Additional controller object can contain '<a href="https://github.com/method" class="user-mention">@method</a>' field to specify http method and '<a href="https://github.com/route" class="user-mention">@route</a>' 
+to specify custom route for this controller (custom route must contains :method parameter).</p>
+
+<p>Structure of <em>app/controllers</em> directory mapped to routes. For example this structure</p>
+
+<pre><code>app
+┗ controllers
+    ┣ files
+    ┃   ┣ controller.js
+    ┃   ┗ index.js      // index.js always points to directory contains file
+    ┗ files.js
+</code></pre>
+
+<p>will be mapped to</p>
+
+<pre><code>/files/:method
+/files/controller/:method
+/files/:method
+</code></pre>
+
+<h3>
+<a id="application-file" class="anchor" href="#application-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Application file</h3>
+
+<p>App root directory must contains app.js file. Loader of app file also accepts core parameter and must return express 
+application.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">/** app/app.js */</span>
+
+<span class="pl-k">var</span> express <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>express<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> logger <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>morgan<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> bodyParser <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>body-parser<span class="pl-pds">'</span></span>);
+
+<span class="pl-c1">module</span>.<span class="pl-en">exports</span> <span class="pl-k">=</span> <span class="pl-k">function</span> (<span class="pl-smi">core</span>) {
+
+    <span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-en">express</span>();
+
+    <span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-en">compression</span>({threshold<span class="pl-k">:</span> <span class="pl-c1">0</span>}));
+    <span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-en">logger</span>(<span class="pl-s"><span class="pl-pds">'</span>dev<span class="pl-pds">'</span></span>));
+    <span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-smi">bodyParser</span>.<span class="pl-en">json</span>({limit<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>32mb<span class="pl-pds">'</span></span>}));
+    <span class="pl-smi">app</span>.<span class="pl-en">use</span>(<span class="pl-smi">bodyParser</span>.<span class="pl-en">urlencoded</span>({extended<span class="pl-k">:</span> <span class="pl-c1">false</span>}));
+
+    <span class="pl-k">return</span> app; <span class="pl-c">// important!</span>
+};</pre></div>
+
+<h2>
+<a id="bonus-track" class="anchor" href="#bonus-track" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bonus Track</h2>
+
+<p>After bootloader finished loading models, it mount RESTful router to get base CRUD functionality. There are some routes:</p>
+
+<pre><code>GET     /:model_name        // get all models
+GET     /:model_name/:_id   // get model by id
+POST    /:model_name        // create new model
+PUT     /:model_name/:_id   // update existing model
+DELETE  /:model_name/:id    // delete existing model
+</code></pre>
+
+<h2>
+<a id="so-what-about-views" class="anchor" href="#so-what-about-views" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>So what about views?</h2>
+
+<p>As you can guess, there are no things that can stop you to use Views with Nibiru.js. You can use express build-in views 
+mechanism. For little bit of aesthetics, place your views in <em>app/views</em> directory and point express to use it by calling</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">app</span>.<span class="pl-en">set</span>(<span class="pl-s"><span class="pl-pds">'</span>views<span class="pl-pds">'</span></span>, <span class="pl-smi">core</span>.<span class="pl-en">base</span>(<span class="pl-s"><span class="pl-pds">'</span>views<span class="pl-pds">'</span></span>));</pre></div>
+
+<p><a href="http://expressjs.com/en/guide/using-template-engines.html">More info about views in express</a> </p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/denistrofimov/nibiru">Nibiru.js</a> is maintained by <a href="https://github.com/denistrofimov">denistrofimov</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
