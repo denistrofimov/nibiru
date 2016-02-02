@@ -1,0 +1,32 @@
+{
+  "name": "nibiru",
+  "version": "0.2.2",
+  "description": "MC framework for node.js based on express and mongoose",
+  "homepage": "https://github.com/denistrofimov/nibiru",
+  "author": {
+    "name": "Denis Trofimov",
+    "url": "https://denistrofimov.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:denistrofimov/nibiru.git"
+  },
+  "bugs": {
+    "url": "https://github.com/denistrofimov/nibiru/issues"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "async": "^0.9.0",
+    "bluebird": "^3.1.5",
+    "express": "~4.12.2",
+    "lodash": "^4.0.1",
+    "mongoose": "^4.0.1",
+    "mongoose-deep-populate": "^1.1.0",
+    "mongoose-relationship": "^0.1.4"
+  },
+  "main": "index.js",
+  "devDependencies": {
+    "chai": "^2.3.0",
+    "mocha": "^2.2.4"
+  }
+}
