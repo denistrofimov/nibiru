@@ -9,7 +9,7 @@ There is no big things behind, just some rules to organize your back-end applica
 ## Install
 Install via [npm](https://www.npmjs.com/package/nibiru)
 ```bash
-$ npm install nibiru
+$ npm install --save nibiru
 ```
 
 
