@@ -1,6 +1,8 @@
 # Nibiru.js
 ---
 
+[![Join the chat at https://gitter.im/denistrofimov/nibiru](https://badges.gitter.im/denistrofimov/nibiru.svg)](https://gitter.im/denistrofimov/nibiru?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Nibiru.js is MC framework for modern web applications based on express and mongoose. `M` is a model, `C` is a 
 controller. That is. There is no Views. Nibiru.js focus on data model and the way it being processed by front-end. 
 There is no big things behind, just some rules to organize your back-end application.
@@ -18,9 +20,10 @@ $ npm install --save nibiru
 Start app by sending application root directory to nibiru. Nibiru.js function returns vanilla bluebird Promise
 
 ```js
+var path = require('path');
 var nibiru = require('nibiru');
 
-nibiru('./app').then(function(core){
+nibiru(path.join(__dirname, 'app')).then(function(core){
 
     // some additional setup
 
@@ -71,7 +74,7 @@ module.exports = function (base) {
 ```
 For handling different apps stages (develop, production), Nibiru.js bootloader looks in `process.env.mode` property 
 for string that indicate stage. If mode is present, bootloader will try to extend default config with config 
-from *app/configs/ **mode** /config.js*
+from app/configs/ **mode** /config.js
 
 There is mandatory fields that config must contains:
 ```
