@@ -182,7 +182,7 @@ App root directory must contains app.js file. Loader of app file also accepts co
 application.
 
 Example:
-```
+```js
 /** app/app.js */
 
 var express = require('express');
