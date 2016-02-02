@@ -18,9 +18,10 @@ $ npm install nibiru
 Start app by sending application root directory to nibiru. Nibiru.js function returns vanilla bluebird Promise
 
 ```js
+var path = require('path');
 var nibiru = require('nibiru');
 
-nibiru('./app').then(function(core){
+nibiru(path.join(__dirname, 'app')).then(function(core){
 
     // some additional setup
 
