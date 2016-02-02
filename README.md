@@ -1,6 +1,8 @@
 # Nibiru.js
 ---
 
+[![Join the chat at https://gitter.im/denistrofimov/nibiru](https://badges.gitter.im/denistrofimov/nibiru.svg)](https://gitter.im/denistrofimov/nibiru?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Nibiru.js is MC framework for modern web applications based on express and mongoose. `M` is a model, `C` is a 
 controller. That is. There is no Views. Nibiru.js focus on data model and the way it being processed by front-end. 
 There is no big things behind, just some rules to organize your back-end application.
