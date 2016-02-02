@@ -74,7 +74,7 @@ module.exports = function (base) {
 ```
 For handling different apps stages (develop, production), Nibiru.js bootloader looks in `process.env.mode` property 
 for string that indicate stage. If mode is present, bootloader will try to extend default config with config 
-from *app/configs/ **mode** /config.js*
+from app/configs/ **mode** /config.js
 
 There is mandatory fields that config must contains:
 ```
