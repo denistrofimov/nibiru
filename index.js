@@ -20,7 +20,7 @@ module.exports = function (base) {
 
         // catch 404 and forward to error handler
         core.app.use(function (req, res, next) {
-            next(core.service('utils').error(404, 'Не найдено'));
+            next(core.service('utils').error('Не найдено', 404));
         });
 
         // error handlers
