@@ -177,7 +177,7 @@ will be mapped to
 /files/controller/:method
 /files/:method
 ```
-
+You can specify '@before' function in you controller. '@before' will be called each request on that controller.
 
 ### Application file
 
@@ -216,7 +216,16 @@ POST    /api/:model_name        // create new model
 PUT     /api/:model_name/:_id   // update existing model
 DELETE  /api/:model_name/:id    // delete existing model
 ```
-
+You can define default value for `per_page` parameter in config on field `'api'`. Also you can specify *before* function 
+which will be called each request to restful.
+```js
+{
+    "api":{
+        "default_per_page":300,
+        "before" : function(req, res, next){ return next();}
+    }
+}
+```
 
 ## So what about views?
 
