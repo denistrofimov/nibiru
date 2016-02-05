@@ -1,6 +1,6 @@
 {
   "name": "nibiru",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "MC framework for node.js based on express and mongoose",
   "homepage": "https://github.com/denistrofimov/nibiru",
   "author": {
