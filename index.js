@@ -33,7 +33,7 @@ module.exports = function (base) {
                 message: message,
                 url: req.url
             });
-            console.error(err);
+            console.error(err.stack);
         });
 
         return http(core.app, {
