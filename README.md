@@ -159,10 +159,10 @@ Name of model sets to underscored, low-cased basename of file.
 
 Controllers are business logic containers mapped to urls that located in *app/controllers* directory. Loader of controller 
 also accepts core argument, but for now, models can be accessed by calling `core.model('name')` method. Loader must return 
-object with *method* fields. Additional controller object can contain '&#64;method' field to specify http method and '&#64;route' 
-to specify custom route for this controller (custom route must contains :method parameter).
+function that will be called on request. Additional controller function can contain `$method` field to specify http method and `$route`
+to specify custom route for this controller.
 
-Structure of *app/controllers* directory mapped to routes. For example this structure
+Structure of *app/controllers* directory maps to routes. For example this structure
 ```
 app
 ┗ controllers
@@ -173,11 +173,10 @@ app
 ```
 will be mapped to
 ```
-/files/:method
-/files/controller/:method
-/files/:method
+/files
+/files/controller
+/files
 ```
-You can specify '@before' function in you controller. '@before' will be called each request on that controller.
 
 ### Application file
 
@@ -205,27 +204,6 @@ module.exports = function (core) {
 };
 ```
 
-
-## Bonus Track
-
-After bootloader finished loading models, it mount RESTful router to get base CRUD functionality. There are some routes:
-```
-GET     /api/:model_name        // get all models
-GET     /api/:model_name/:_id   // get model by id
-POST    /api/:model_name        // create new model
-PUT     /api/:model_name/:_id   // update existing model
-DELETE  /api/:model_name/:id    // delete existing model
-```
-You can define default value for `per_page` parameter in config on field `'api'`. Also you can specify *before* function 
-which will be called each request to restful.
-```js
-{
-    "api":{
-        "default_per_page":300,
-        "before" : function(req, res, next){ return next();}
-    }
-}
-```
 
 ## So what about views?
 
