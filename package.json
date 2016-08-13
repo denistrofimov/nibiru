@@ -1,6 +1,6 @@
 {
   "name": "nibiru",
-  "version": "0.3.9",
+  "version": "0.4.0",
   "description": "MC framework for node.js based on express and mongoose",
   "homepage": "https://github.com/denistrofimov/nibiru",
   "author": {
@@ -21,7 +21,6 @@
     "express": "~4.12.2",
     "lodash": "^4.0.1",
     "mongoose": "^4.4.1",
-    "mongoose-beautiful-unique-validation": "^3.0.2",
     "mongoose-deep-populate": "^1.1.0",
     "mongoose-relationship": "^0.1.4"
   },
