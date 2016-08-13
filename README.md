@@ -1,4 +1,4 @@
-# Nibiru.js
+Nibiru.js
 ---
 
 [![Join the chat at https://gitter.im/denistrofimov/nibiru](https://badges.gitter.im/denistrofimov/nibiru.svg)](https://gitter.im/denistrofimov/nibiru?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -150,7 +150,8 @@ module.exports = function (core) {
 ```
 Bootloader automatically install [mongoose-deep-populate](https://www.npmjs.com/package/mongoose-deep-populate) plugin. 
 Also [mongoose-relationship](https://www.npmjs.com/package/mongoose-relationship) plugin will be installed on models 
-who has fields with `childPath` option. 
+who has fields with `childPath` option. For catching duplicate errors as regular validation 
+errors [mongoose-beautiful-unique-validation](https://www.npmjs.com/package/mongoose-beautiful-unique-validation) will be installed on model
 
 Name of model sets to underscored, low-cased basename of file.
 
