@@ -11,12 +11,17 @@ var util = require('util');
 /**
  * Core
  * @param {String} base
+ * @param {Object} [options]
  * @returns {Promise}
  */
-module.exports = function (base) {
+module.exports = function (base, options) {
     return bootloader.load({
         base: base
     }).then(function (core) {
+
+        if (options && !options.start)
+            return core;
+
         return http(core.app, {
             port: core.config.server.port
         }).then(function () {
